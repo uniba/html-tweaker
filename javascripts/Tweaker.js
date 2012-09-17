@@ -5,10 +5,12 @@
     , counter = 0
     , colorElm = []
     , bgColorElm = []
-    , positionElm = [];
+    , positionElm = []
+    , imageElm = []
+    , bgImageElm = [];
 
   for (var i=0, maxi=elm.length; i<maxi; i+=1) {
-    if ($(elm[i]).css('margin-left') && $(elm[i]).css('margin-left') != '0px') {
+    if ($(elm[i]).css('position') === 'absolute') {
       positionElm.push(elm[i]);
     }
   }
@@ -25,14 +27,33 @@
     }
   }
   
-  console.log(positionElm.length);
-  console.log(colorElm.length);
-  console.log(bgColorElm.length);
+  imageElm = $(elm).filter('img');
+  for (var i=0, maxi=imageElm.length; i<maxi; i+=1) {
+    if ($(imageElm[i]).attr('height') === undefined) {
+      $(imageElm[i]).attr('height', $(imageElm[i]).css('height'));
+    }
+    if ($(imageElm[i]).attr('width') === undefined) {
+      $(imageElm[i]).attr('width', $(imageElm[i]).css('width'));
+    }
+  }
 
+  for (var i=0, maxi=elm.length; i<maxi; i+=1) {
+    if ($(elm[i]).css('background-image').substr(0, 3) === 'url') {
+      bgImageElm.push(elm[i]);
+    }
+  }
+  
   function updatePosition() {
-    for (var i=0, maxi=positionElm.length; i<maxi; i+=Math.round(Math.random() * 100)) {
-      var mt = parseInt($(positionElm[i]).css('margin-left').replace('px', ''));
-      $(positionElm[i]).css('margin-left', mt + (Math.random() * 4 - 2));
+    for (var i=0, maxi=elm.length; i<maxi; i+=Math.round(Math.random() * 10)) {
+      var mt = parseInt($(elm[i]).css('margin-left').replace('px', ''));
+      $(elm[i]).css('margin-left', mt + (Math.random() * 100 - 50));
+    }
+  }
+
+  function updateAbsolutePosition() {
+    for (var i=0, maxi=positionElm.length; i<maxi; i+=1) {
+      $(positionElm[i]).css('left', (Math.random() * 10) - 5);
+      $(positionElm[i]).css('top',  (Math.random() * 10) - 5);
     }
   }
 
@@ -48,22 +69,37 @@
     }
   }
 
+  function replaceImgSrc() {
+    var imageIndex = Math.round(Math.random() * (imageElm.length - 1))
+      , bgImageIndex = Math.round(Math.random() * (bgImageElm.length - 1));  
+    $(imageElm[imageIndex]).attr('src','http://www.cheshirecat.jp/images/noise.gif');
+    $(bgImageElm[bgImageIndex]).css('background-image','url("http://www.cheshirecat.jp/images/noise.gif")');
+  }
+
   animate();
 
   function animate() {    
     requestAnimationFrame( animate );
-    
-    if (counter % 1 == 0) {
-      updatePosition();
+
+    if (counter > 90 && counter % 1 == 0) {
+      replaceImgSrc();
     }
     
-    if (counter % 1 == 0) {
+    if (counter > 450 && counter % 1 == 0) {
       updateColor();
     }
-    
-    if (counter % 1 == 0) {
+
+    if (counter > 500 && counter % 1 == 0) {
+      updateAbsolutePosition();
+    }
+
+    if (counter > 590 && counter % 1 == 0) {
       updateBgColor();
     }
+
+    if (counter > 600 && counter % 90 == 0) {
+      updatePosition();
+    }    
 
     
     counter++;
