@@ -237,7 +237,7 @@
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.domElement.style.position = 'absolute';
 		renderer.domElement.style.top = 0;
-		renderer.domElement.style.zIndex = 100000;
+		renderer.domElement.style.zIndex = -100000;
 		document.body.appendChild(renderer.domElement);
 		
 		animate();
