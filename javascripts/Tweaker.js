@@ -9,7 +9,8 @@
     , imageElm = []
     , bgImageElm = []
     , threejsElm = []
-    , threejsObj = [];
+    , threejsObj = []
+    , threejsElmCounter = [];
     
   // Three.js
   var camera
@@ -21,15 +22,9 @@
 
   function animate() {    
     requestAnimationFrame( animate );
-
-    if (counter == 90) {
-      moveDomElemetToCss3d();
-    }
     
     if (counter > 90) {
-      for (var i=0, maxi=threejsObj.length; i<maxi; i+=1) {
-        threejsObj[i].rotation.y += Math.random() * Math.PI / 60;
-      }
+      moveDomElemetToCss3d();
     }
     
     if (counter > 450 && counter % 1 == 0) {
@@ -62,11 +57,16 @@
   }
 
   function moveDomElemetToCss3d() {
-    for (var i=0, maxi=threejsElm.length; i<maxi; i+=1) {
-      //if ($(threejsElm[i]).css('-webkit-transform') === 'none') {
-        createCss3dObject(threejsElm[i]);
-        //i = maxi;
-      //}
+    // add a new 3d object
+    var l = threejsElmCounter.length;
+    if (l > 0) {
+      createCss3dObject(threejsElm[threejsElmCounter[0]]);
+      threejsElmCounter.splice(0, 1);
+    }
+    
+    // rotate objects existing already
+    for (var i=0, maxi=threejsObj.length; i<maxi; i+=1) {
+      threejsObj[i].rotation.y += Math.PI / 60;
     }
     
     /*
@@ -206,6 +206,10 @@
         threejsElm.push(elm[i]);
       }
     }
+    for (var i=0, maxi=threejsElm.length; i<maxi; i+=1) {
+      threejsElmCounter[i] = i;
+    }
+    shuffleArray(threejsElmCounter);
     
     // Three.js
 		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
@@ -238,5 +242,16 @@
 		
 		animate();
 	}
+	
+	function shuffleArray(a) {
+    var i = a.length;
+    while(i){
+        var j = Math.floor(Math.random()*i);
+        var t = a[--i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+    return a;
+  }
 
 })();
