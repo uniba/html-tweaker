@@ -1,6 +1,6 @@
 (function(){
 
-  var elm = $('html, html *').children()
+  var elm = $('body *').children()
     , timeline = new Timeline(200)
     , counter = 0
     , colorElm = []
@@ -44,7 +44,7 @@
       updateBgColor();
     }
 
-    if (counter > 600 && counter % 90 == 0) {
+    if (counter > 600 && counter % Math.round(Math.random() * 90) == 0) {
       updatePosition();
     }
     
@@ -53,6 +53,9 @@
     }
 
     //controls.update();
+    scene.position.x = $(window).scrollLeft();
+    scene.position.y = $(window).scrollTop();
+    
     renderer.render(scene, camera);
 
     counter++;
@@ -85,10 +88,19 @@
   
   function createCss3dObject(e) {
 		var element = e
-		  , object = new THREE.CSS3DObject(element);
-    			  
-		object.position.x = $(element).offset().left - window.innerWidth  / 2 + $(element).width()  / 2;
-		object.position.y = $(element).offset().top  - window.innerHeight / 2 + $(element).height() / 2;
+		  , object = new THREE.CSS3DObject(element)
+		  , posX = $(element).offset().left
+		  , posY = $(element).offset().top;
+		
+		if (posX == 0 && posY == 0) {
+  		posX = Math.random() * window.innerWidth;
+  		posY = Math.random() * window.innerHeight;
+		}
+		posX -= window.innerWidth  / 2 - $(element).width()  / 2;
+		posY -= window.innerHeight / 2 - $(element).height() / 2;
+		
+		object.position.x = posX;
+		object.position.y = posY;
 		object.position.z = 0;
 		object.rotation.x = 0; //Math.PI / 12 * i;
 		object.rotation.y = 0; //Math.PI / 12 * i;
@@ -101,7 +113,7 @@
   }
 
   function updatePosition() {
-    for (var i=0, maxi=elm.length; i<maxi; i+=Math.round(Math.random() * 10)) {
+    for (var i=0, maxi=elm.length; i<maxi; i+=Math.round(Math.random() * 100)) {
       var mt = parseInt($(elm[i]).css('margin-left').replace('px', ''));
       $(elm[i]).css('margin-left', mt + (Math.random() * 100 - 50));
     }
@@ -189,6 +201,11 @@
     }
     
     threejsElm = $(elm).filter('img');
+    for (var i=0, maxi=elm.length; i<maxi; i+=1) {
+      if ($(elm[i]).css('background-image').substr(0, 3) === 'url' && $(elm[i]).width() < 300) {
+        threejsElm.push(elm[i]);
+      }
+    }
     
     // Three.js
 		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
