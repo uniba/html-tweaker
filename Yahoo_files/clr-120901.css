@@ -1,0 +1,16 @@
+/*++++++++++++++++++++
+ver 0.65
+2012/09/01
+++++++++++++++++++++*/
+/* img include
+====================*/
+.bg1,.bg2,.bg3,.bg4,.symbol a,#contents .hd,#uhd,#mhicon li a,#searchbox,#searchbox form,#searchbox fieldset,.srchbtn,#srchAssistClose,#srchacb,#srchAssistClose span,#navi .contentbox2nd,#topicsbox .tab,#topicsbox .tab li.on,#topicsbox .tab li,#spotlight,#personalbox,#pbdata{background-image:url(clr-120901.png);}
+/* global setting
+====================*/
+.hd{border-bottom-color:#57718f;}.bx,.bdC1,#local .bdC1{border-color:#9fb7d4;}#pbtoday .bdC2{border-color:#d4dce9;}.bgC{border-color:#dce3ea;background-color:#f0f3fa;}.bgC2{background-color:#e9eef5;}.bgC3{background-color:#e0e7ff;}.assist{border-color:#c8d4e3;}.assist a,.assist a:visited{border-color:#9baab1;}.bkNum{background-color:#e0e7ff;}
+/* each setting
+====================*/
+.srchbtn{border-color:#455893;background-color:#00adfc;}#navi .bx1{background-color:#fbfcfe;}#contentbox .hd{border-top-color:#9fb7d4;}#contentbox .hd .cbbtn{border-color:#9baab1;}.contentbox2nd{border-color:#57718f;}.cb2allservice{background-color:#f0f3fa;}#companybox div{border-top-color:#9baab1;}#topicsbox .tab{background-color:#e1e8ff;border-color:#9fb7d4;border-bottom-color:#9baab1;}#topicsbox .tab li{border-bottom-color:#9baab1;border-top-color:#9fb7d4;background-color:#e1e8ff;}#topicsbox .tab li span{border-bottom-color:#9baab1;border-right-color:#9fb7d4;}#topicsbox .tab .on{border-top-color:#57718f;}#topicsbox .tab .on span,#topicsbox .tab .off span{border-right-color:#9baab1;}#topicsboxbd .topicsdetail{border-color:#e0e7ff;background-color:#f8fafd;}#pbcalendar table td.t a{background:#7ea7c7;}
+/* adjust clr6
+====================*/
+#uhd{background-color:#fff;border-color:#c8d4e3;}#navi .bx,#sub .bx,#sub #personalbox,#sub .bg2{border-color:#9fb7d4;background-color:#fff;}#contentbox .hd{border-bottom-color:#9baab1;}#topicsbox .tab .on{background-position:0 -300px;}#spotlight,#selectionR,#video,#cgmboxR{border-color:#9fb7d4;}#contents #event,#announce .hd,#sub .hd,#sub .bg2{background-color:#fff;}#pbhello,#pbhello a,#pbidinfo{color:#fff;}#pbhello,.loginout,#everywhere .hd,#local .hd,#local .hd a,#rightbox .hd,#rightbox2 .hd,#partner .hd,#auction .hd{color:#000;}#pbhello a,.loginout a,#auction .hd a{color:#1d3994;}#pbhello a:visited,.loginout a:visited{color:#941d55;}
