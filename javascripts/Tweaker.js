@@ -31,19 +31,23 @@
       updateColor();
     }
 
-    if (counter > 500 && counter % 1 == 0) {
+    if (counter > 450 && counter % 1 == 0) {
       updateAbsolutePosition();
     }
 
-    if (counter > 590 && counter % 1 == 0) {
+    if (counter > 500) {
+      renderer.domElement.style.zIndex = -100000;
+    }
+
+    if (counter > 550 && counter % 1 == 0) {
       updateBgColor();
     }
 
-    if (counter > 600 && counter % Math.round(Math.random() * 90) == 0) {
+    if (counter > 560 && counter % Math.round(Math.random() * 90) == 0) {
       updatePosition();
     }
     
-    if (counter > 610 && counter % 1 == 0) {
+    if (counter > 570 && counter % 1 == 0) {
       replaceImgSrc();
     }
 
@@ -237,7 +241,7 @@
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.domElement.style.position = 'absolute';
 		renderer.domElement.style.top = 0;
-		renderer.domElement.style.zIndex = -100000;
+		renderer.domElement.style.zIndex = 100000;
 		document.body.appendChild(renderer.domElement);
 		
 		animate();
