@@ -51,7 +51,7 @@
       replaceImgSrc();
     }
 
-    //controls.update();
+    controls.update();
     scene.position.x = $(window).scrollLeft();
     scene.position.y = $(window).scrollTop();
     
@@ -219,7 +219,6 @@
 		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
 		camera.position.set(0, 0, 600);
 
-		/*
 		controls = new THREE.TrackballControls(camera);
 
 		controls.rotateSpeed = 1.0;
@@ -233,7 +232,6 @@
 		controls.dynamicDampingFactor = 0.3;
 
 		controls.keys = [ 65, 83, 68 ];
-		*/
 
 		scene = new THREE.Scene();
 
