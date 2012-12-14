@@ -12,6 +12,14 @@
     , threejsObj = []
     , threejsElmCounter = [];
     
+  var autoFlag = false
+    , css3dFlag = false
+    , colorFlag = false
+    , absolutePositionFlag = false
+    , bgColorFlag = false
+    , positionFlag = false
+    , replaceImgFlag = false;
+    
   // Three.js
   var camera
     , scene
@@ -20,37 +28,84 @@
 
   init();
 
+  $(window).keydown(function(e){
+    console.log(e.keyCode);
+    
+    switch(e.keyCode) {
+      case 81 : // 'q'
+        css3dFlag = !css3dFlag;
+        break;
+
+      case 87: // 'w'
+        colorFlag = !colorFlag;
+        break;
+      
+      case 69 : // 'e'
+        absolutePositionFlag = !absolutePositionFlag;
+        break;
+        
+      case 82 : // 'r'
+        bgColorFlag = !bgColorFlag;
+        break;
+        
+      case 84 : // 't'
+        positionFlag = !positionFlag;
+        break;
+        
+      case 89 : // 'y'
+        replaceImgFlag = !replaceImgFlag;
+        break;
+    
+      case 37 : 
+        autoFlag = false;
+        break;
+      
+      case 39 :
+        autoFlag = true;
+        break;
+            
+      case 38 :
+        renderer.domElement.style.zIndex =  100000;
+        break;
+        
+      case 40 :
+        renderer.domElement.style.zIndex = -100000;
+        break;
+    }
+    
+    return false;
+  });
+
+
   function animate() {    
     requestAnimationFrame( animate );
     
-    if (counter > 90) {
-      moveDomElemetToCss3d();
-    }
-    
-    if (counter > 450 && counter % 1 == 0) {
-      updateColor();
-    }
-
-    if (counter > 450 && counter % 1 == 0) {
-      updateAbsolutePosition();
-    }
-
-    if (counter > 500) {
-      renderer.domElement.style.zIndex = -100000;
-    }
-
-    if (counter > 550 && counter % 1 == 0) {
-      updateBgColor();
-    }
-
-    if (counter > 560 && counter % Math.round(Math.random() * 90) == 0) {
-      updatePosition();
-      var synth = new Synth(audiolet, 440);
-      synth.connect(audiolet.output);
-    }
-    
-    if (counter > 570 && counter % 1 == 0) {
-      replaceImgSrc();
+    if (autoFlag) {
+      if (css3dFlag && counter % 1 == 0) {
+        moveDomElemetToCss3d();
+      }
+      
+      if (colorFlag && counter % 1 == 0) {
+        updateColor();
+      }
+  
+      if (absolutePositionFlag && counter % 1 == 0) {
+        updateAbsolutePosition();
+      }
+  
+      if (bgColorFlag && counter % 1 == 0) {
+        updateBgColor();
+      }
+  
+      if (positionFlag && counter % Math.round(Math.random() * 90) == 0) {
+        updatePosition();
+        var synth = new Synth(audiolet, 440);
+        synth.connect(audiolet.output);
+      }
+      
+      if (replaceImgFlag && counter % 1 == 0) {
+        replaceImgSrc();
+      }
     }
 
     controls.update();
