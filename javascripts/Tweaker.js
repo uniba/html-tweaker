@@ -56,20 +56,24 @@
         replaceImgFlag = !replaceImgFlag;
         break;
     
-      case 37 : 
+      case 74 : // 'l'
         autoFlag = false;
         break;
       
-      case 39 :
+      case 76 : // 'j'
         autoFlag = true;
         break;
             
-      case 38 :
+      case 73 : // 'i'
         renderer.domElement.style.zIndex =  100000;
         break;
         
-      case 40 :
+      case 77 : // 'm'
         renderer.domElement.style.zIndex = -100000;
+        break;
+        
+      case 75 : // 'k'        
+        controls.enabled = !controls.enabled;
         break;
     }
     
@@ -108,7 +112,9 @@
       }
     }
 
-    controls.update();
+    if (controls) {
+      controls.update();
+    }
     scene.position.x = $(window).scrollLeft();
     scene.position.y = $(window).scrollTop();
     
@@ -276,20 +282,6 @@
 		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
 		camera.position.set(0, 0, 600);
 
-		controls = new THREE.TrackballControls(camera);
-
-		controls.rotateSpeed = 1.0;
-		controls.zoomSpeed = 1.2;
-		controls.panSpeed = 0.8;
-
-		controls.noZoom = true;
-		controls.noPan = true;
-
-		controls.staticMoving = false;
-		controls.dynamicDampingFactor = 0.3;
-
-		controls.keys = [ 65, 83, 68 ];
-
 		scene = new THREE.Scene();
 
 		renderer = new THREE.CSS3DRenderer();
@@ -298,6 +290,20 @@
 		renderer.domElement.style.top = 0;
 		renderer.domElement.style.zIndex = 100000;
 		document.body.appendChild(renderer.domElement);
+		
+		controls = new THREE.TrackballControls(camera);
+
+    controls.rotateSpeed = 1.0;
+    controls.zoomSpeed = 1.2;
+    controls.panSpeed = 0.8;
+
+    controls.noZoom = true;
+    controls.noPan = true;
+
+    controls.staticMoving = false;
+    controls.dynamicDampingFactor = 0.3;
+
+    controls.keys = [ 65, 83, 68 ];
 		
 		animate();
 	}
