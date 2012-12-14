@@ -45,6 +45,8 @@
 
     if (counter > 560 && counter % Math.round(Math.random() * 90) == 0) {
       updatePosition();
+      var synth = new Synth(audiolet, 440);
+      synth.connect(audiolet.output);
     }
     
     if (counter > 570 && counter % 1 == 0) {
@@ -256,14 +258,38 @@
     return a;
   }
   
+  var audiolet = new Audiolet();
+  
   function playExample() {
-    var audiolet = new Audiolet();
-    var sine = new WhiteNoise(audiolet);
+    var noise = new WhiteNoise(audiolet);
     var filter = new LowPassFilter(audiolet, 200);
-    sine.connect(filter);
+    noise.connect(filter);
     filter.connect(audiolet.output);
   }
-  
   playExample();
+  
+  var Synth = function(audiolet, frequency) {
+    AudioletGroup.call(this, audiolet, 0, 1);
+    // Basic wave
+    this.saw = new Sine(audiolet, frequency);
+
+    // Gain envelope
+    this.gain = new Gain(audiolet, 0.1);
+    this.env = new PercussiveEnvelope(audiolet, 1, 0.1, 0.1,
+        function() {
+            this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
+        }.bind(this)
+    );
+    this.envMulAdd = new MulAdd(audiolet, 0.3, 0);
+
+    // Main signal path
+    this.saw.connect(this.gain);
+    this.gain.connect(this.outputs[0]);
+
+    // Envelope
+    this.env.connect(this.envMulAdd);
+    this.envMulAdd.connect(this.gain, 0, 1);
+  }
+  extend(Synth, AudioletGroup); 
 
 })();
